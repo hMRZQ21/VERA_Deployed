@@ -12,17 +12,28 @@
    </a>
 </p>
 
-An audio classification project which takes audio files recorded from  speech, primarily in .wav format, and predicts the emotion conveyed from the voice.
+VERA is an emotion classification model which takes audio files recorded from  speech, primarily in .wav format, and predicts the emotions conveyed from voices.
 
 ## NOTEBOOK VIEWER LINK
 
 You can check the Jupyter notebook for [model creation](https://nbviewer.org/github/hMRZQ21/VERA_CTP/blob/main/backend/vera-notebook.ipynb) here.
 
+## TECHNOLOGIES
+
+1. [Librosa](https://librosa.org)
+2. [Numpy](https://numpy.org/)
+3. [Pandas](https://pandas.pydata.org/)
+4. [Seaborn](https://seaborn.pydata.org/)
+5. [Plotly](https://plotly.com/)
+6. [Tensorflow/Keras](https://www.tensorflow.org/)
+7. [Scikit-Learn](https://scikit-learn.org/stable/)
+8. [Kaggle](https://www.kaggle.com/)
+
 ## DATASETS USED
 
 1. [RAVDESS Emotional Speech Dataset on Kaggle](https://www.kaggle.com/uwrfkaggler/ravdess-emotional-speech-audio)
    <br />
-   <p>This portion of the RAVDESS contains 1440 files: 60 trials per actor x 24 actors = 1440. The RAVDESS contains 24 professional actors (12 female, 12 male), vocalizing two lexically-matched statements in a neutral North American accent. Speech emotions includes calm, happy, sad, angry, fearful, surprise, and disgust expressions. Each expression is produced at two levels of emotional intensity (normal, strong), with an additional neutral expression.</p>
+   <p>This portion of the RAVDESS contains 1440 files: 60 trials per actor x 24 actors = 1440. RAVDESS contains 24 professional actors (12 female, 12 male), vocalizing two lexically-matched statements in a neutral North American accent. Speech emotions includes calm, happy, sad, angry, fearful, surprise, and disgust expressions. Each expression is produced at two levels of emotional intensity (normal, strong), with an additional neutral expression.</p>
 
 2. [CREMA-D: Crowd Sourced Emotional Multimodal Actors Dataset](https://www.kaggle.com/datasets/ejlok1/cremad)
    <br>
@@ -36,20 +47,7 @@ You can check the Jupyter notebook for [model creation](https://nbviewer.org/git
 
 4. [TESS: Toronto Emotional Speech Set](https://www.kaggle.com/datasets/ejlok1/toronto-emotional-speech-set-tess)
    <br>
-   <p>There are a set of 200 target words were spoken in the carrier phrase "Say the word _' by two actresses (aged 26 and 64 years) and recordings were made of the set portraying each of seven emotions (anger, disgust, fear, happiness, pleasant surprise, sadness, and neutral). There are 2800 data points (audio files) in total.<br>
-
-   The dataset is organized such that each of the two female actor and their emotions are contain within its own folder. And within that, all 200 target words audio file can be found. The format of the audio file is a WAV format</p>
-
-## TECHNOLOGIES
-
-1. [Librosa](https://librosa.org)
-2. [Numpy](https://numpy.org/)
-3. [Pandas](https://pandas.pydata.org/)
-4. [Seaborn](https://seaborn.pydata.org/)
-5. [Plotly](https://plotly.com/)
-6. [Tensorflow/Keras](https://www.tensorflow.org/)
-7. [Scikit-Learn](https://scikit-learn.org/stable/)
-8. [Kaggle](https://www.kaggle.com/)
+   <p>There are a set of 200 target words were spoken in the carrier phrase "Say the word __' by two actresses (aged 26 and 64 years) and recordings were made of the set portraying each of seven emotions (anger, disgust, fear, happiness, pleasant surprise, sadness, and neutral). There are 2800 data points (audio files) in total. <br>
 
 ## SPECIAL MENTIONS
 
