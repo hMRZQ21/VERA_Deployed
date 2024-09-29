@@ -16,20 +16,34 @@ VERA is an emotion classification model which takes audio files recorded from  s
 
 ## NOTEBOOK VIEWER LINK
 
-You can check the Jupyter notebook for [model creation](https://nbviewer.org/github/hMRZQ21/VERA_CTP/blob/main/backend/vera-notebook.ipynb) here.
+You can check the [Jupyter Notebook](https://nbviewer.org/github/hMRZQ21/VERA_CTP/blob/main/backend/vera-notebook.ipynb) for model creation here.
 
 ## TECHNOLOGIES
 
-1. [Librosa](https://librosa.org)
-2. [Numpy](https://numpy.org/)
-3. [Pandas](https://pandas.pydata.org/)
-4. [Seaborn](https://seaborn.pydata.org/)
-5. [Plotly](https://plotly.com/)
-6. [Tensorflow/Keras](https://www.tensorflow.org/)
-7. [Scikit-Learn](https://scikit-learn.org/stable/)
-8. [Kaggle](https://www.kaggle.com/)
+* [Librosa](https://librosa.org): for audio processing and feature extraction
+
+* [Tensorflow/Keras](https://www.tensorflow.org/): for model creation and training
+
+* [Scikit-Learn](https://scikit-learn.org/stable/): also for model creation and training
+
+* [Pandas](https://pandas.pydata.org/): for data cleaning and manipulation
+
+* [Numpy](https://numpy.org/): for data manipulation
+
+* [Seaborn](https://seaborn.pydata.org/): for data visualization
+
+* [Plotly](https://plotly.com/): also for data visualization
+
+* [Kaggle](https://www.kaggle.com/): where we found the data
+
+* [Flask](https://flask.palletsprojects.com/en/3.0.x/): for backend services
+
+* [Deployment platform](): work in progress...
+
 
 ## DATASETS USED
+
+I've combined the following four datasets. This left us with a total of 12,162 audio files voiced by 121 actors, with 229 phrases spoken and expressing 7 emotions across them. After performing data augmentation, 12,162 audio files became 48,648 files. Each original file was stretched, noise injected, and pitched, effectively quadrupling the dataset size. 
 
 1. [RAVDESS Emotional Speech Dataset on Kaggle](https://www.kaggle.com/uwrfkaggler/ravdess-emotional-speech-audio)
    <br />
