@@ -81,7 +81,7 @@ function sendAudioToFlask(audioBlob) {
   .then(data => {
     console.log('Server response:', data);
     // Update the classification result based on the predicted class
-    const predictedEmotion = emotions[data.predicted_class] || "Unknown emotion.";
+    const predictedEmotion = emotions[data.predicted_emotion] || "Unknown emotion.";
     document.getElementById("classificationResult").innerText = predictedEmotion;
   })
   .catch(error => {
