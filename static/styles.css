@@ -1,0 +1,81 @@
+/* Global styles */
+body {
+    background-color: #121212;
+    color: #E0E0E0;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-top: 2rem;
+    color: #f1f1f1;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #A1A1A1;
+    margin-top: 1.5rem;
+}
+
+#randomPrompt, #randomEmotion, #classificationResult {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #E0E0E0;
+}
+
+/* Button styles */
+button {
+    background-color: #4A90E2;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+    background-color: #357ABD;
+    transform: scale(1.05);
+}
+
+button:disabled {
+    background-color: #555555;
+    cursor: not-allowed;
+}
+
+audio {
+    margin-top: 1rem;
+}
+
+/* Custom containers */
+#randomPrompt, #randomEmotion, #classificationResult {
+    padding: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #1E1E1E;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+/* Footer styles */
+footer {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #757575;
+}
+
+footer a {
+    color: #4A90E2;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #357ABD;
+    text-decoration: underline;
+}

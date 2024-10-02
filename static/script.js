@@ -13,16 +13,16 @@ const emotions = {
 };
 
 const prompts = [
-  "Kids are talking by the door.",
-  "Dogs are sitting by the door.",
-  "It's eleven o'clock.",
-  "That is exactly what happened.",
-  "I'm on my way to the meeting.",
-  "I wonder what this is about.",
-  "The airplane is almost full.",
-  "Maybe tomorrow it will be cold.",
-  "I think I have a doctor's appointment.",
-  "Say the word apple.",
+  "Kids are talking by the door",
+  "Dogs are sitting by the door",
+  "It's eleven o'clock",
+  "That is exactly what happened",
+  "I'm on my way to the meeting",
+  "I wonder what this is about",
+  "The airplane is almost full",
+  "Maybe tomorrow it will be cold",
+  "I think I have a doctor's appointment",
+  "Say the word apple",
 ];
 
 document.getElementById("record").onclick = async () => {

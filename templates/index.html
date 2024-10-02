@@ -4,28 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VERA: Voice Emotion Recognition of Audio</title>
+
+  <!-- Link to the external CSS file -->
+  <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
 
+  <!-- Main Title -->
   <h1>VERA: Voice Emotion Recognition of Audio</h1>
+  <img src="../static/Waveform.jpg" alt="soundwave" width="600" height="300">
+  <br> <br>
   
+  <!-- Buttons for recording and stopping audio -->
   <button id="record">Start Recording</button>
   <button id="stop" disabled>Stop Recording</button>
   
+  <!-- Playback section -->
   <h2>Playback:</h2>
   <audio id="audioPlayback" controls></audio>
   
+  <!-- Random Prompt Section -->
   <h2>Random Prompt:</h2>
   <div id="randomPrompt">No prompt selected.</div>
   <button id="selectPrompt">Get Random Prompt</button>
 
+  <!-- Random Emotion Section -->
   <h2>Random Emotion:</h2>
   <div id="randomEmotion">No emotion selected.</div>
   <button id="selectEmotion">Get Random Emotion</button>
 
+  <!-- Classification Result Section -->
   <h2>Classification Result:</h2>
-  <!-- Section to display the classification result -->
   <div id="classificationResult">No result yet.</div>
+
+  <!-- Footer with GitHub link -->
+  <footer>
+    Check out our <a href="https://github.com/hMRZQ21/VERA_Deployed" target="_blank">GitHub repository</a>
+  </footer>
+  <br> 
 
   <!-- Link to the external JavaScript file -->
   <script src="../static/script.js"></script>
