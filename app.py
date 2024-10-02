@@ -1,9 +1,12 @@
 from flask import Flask, request, jsonify, render_template
-import io, librosa, joblib
 from tensorflow.keras.models import load_model
+from warnings import filterwarnings
+from io import BytesIO  # A binary stream using an in-memory bytes buffer
 import numpy as np
-from gc import collect
+import joblib   # For loading model scaler
+import librosa  # For audio analysis
 
+filterwarnings('ignore')
 app = Flask(__name__)
 
 # Load trained model & scaler
@@ -17,81 +20,78 @@ def index():  # Runs the HTML file
 # Route to handle audio file upload and classification
 @app.route('/upload_audio', methods=['POST'])
 def upload_audio():
-    if 'audio' not in request.files: return jsonify({"error": "No audio file found"}), 400
+    if 'audio' not in request.files: 
+        return jsonify({"error": "No audio file found"}), 400
 
-    # Get the audio file directly from the request
+    # Get audio file directly from the request
     audio_file = request.files['audio']
+    # ^ werkzeug.datastructures.file_storage.FileStorage type
     
     # Read the file as bytes (in-memory)
-    audio_data = audio_file.read()
+    audio_bytes = audio_file.read()  # byte type
 
     # Convert the audio bytes to a numpy array using librosa
-    y, sr = librosa.load(io.BytesIO(audio_data), sr=None)
+    audio_data, sample_rate = librosa.load(BytesIO(audio_bytes), sr=None) 
+    # ^ audio_data is numpy.ndarray type of floats
+    # ^ sample_rate is int type, value: 48000
+    # optional? args for librosa.load(duration=2.5, offset=0.6)
 
     # Processing the audio_data with our speech classification model:
-    features = feature_extraction(y, sr)
+    features = feature_extraction(audio_data, sample_rate)
 
-    # Determine if ndarray needs to be increased in size.
-    if features.ndim < 2 or features.shape[1] < 2376: 
-        features = increase_ndarray_size(features)
-    
+    # Determine if ndarray needs to be increased in dimensions.
+    features_reshaped = reshape_dims(features)
+
     # Scale the features
-    features_scaled = scaler.transform([features])
-
+    features_scaled = scaler.transform(features_reshaped)
+    
     # Make a prediction using the loaded model
     prediction = model.predict(features_scaled)
 
     # Get the predicted class
-    predicted_class = np.argmax(prediction, axis=1)[0]
+    predicted_class = np.argmax(prediction, axis=1)[0] 
+    # print(np.argmax(prediction, axis=1))
+    # print(predicted_class)
 
-    predicted_emotion = emotions[predicted_class]    
-
+    predicted_emotion = emotions[predicted_class]
+    # print(predicted_emotion)
+   
     # Return the predicted emotion
-    return jsonify({"message": "Audio file processed successfully", "predicted_emotion": predicted_emotion})
+    return jsonify({"message": "Audio file processed successfully",
+                               "predicted_emotion": predicted_emotion
+                    })
 
-def feature_extraction(y, sr):
-    # Mel Frequency Cepstral Coefficients (MFCC):
-    mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
-    mfccs_processed = np.mean(mfccs.T, axis=0)  # Average across time
+# helper functions:
+def feature_extraction(data, sample_rate): # pipeline for 3 feature extractions
+    # Mel Frequency Cepstral Coefficients (MFCCs):
+    mfccs = np.ravel(librosa.feature.mfcc(y=data, sr=sample_rate).T)
 
     # Zero Crossing Rate (ZCR):
-    zcr = librosa.feature.zero_crossing_rate(y=y, frame_length=2048, hop_length=512)
-    zcr_processed = np.mean(zcr.T, axis=0)  # Average across time
+    zcr = np.squeeze(librosa.feature.zero_crossing_rate(y=data, frame_length=2048, hop_length=512))
 
     # Root Mean Square (RMS):
-    rms = librosa.feature.rms(y=y, frame_length=2048, hop_length=512)
-    rms_processed = np.mean(rms.T, axis=0)  # Average across time
+    rms = np.squeeze(librosa.feature.rms(y=data, frame_length=2048, hop_length=512))
 
     # Combine all features into a single array
-    features = np.hstack([mfccs_processed, zcr_processed, rms_processed])
-    return features
+    return np.hstack((zcr, rms, mfccs))
 
-def increase_ndarray_size(features_test):
-    # Increase ndarray dimensions to [4,2376].
-    tmp = np.zeros([4, 2377])
-    offsets = [0, 1]
-    insert_here = tuple([
-        slice(offsets[dim], offsets[dim] + features_test.shape[dim])
-        for dim in range(features_test.ndim)
-    ])
+def reshape_dims(features): # reshape ndarray dimensions to [4,2376]
+    target_size = 4 * 2376
+    pad_size = target_size - features.size
 
-    tmp[insert_here] = features_test
-    features_test = tmp
-    del tmp; collect()
+    arr_padded = np.pad(features, (0, pad_size), 'constant')
+    return arr_padded.reshape(4, 2376)
 
-    features_test = np.delete(features_test, 0, axis=1)
-
-    return features_test
-
+# lookup table
 emotions = {
-  "angry": "Angry 😡",
-  "calm": "Calm 😌",
-  "disgust": "Disgusted 🤢",
-  "fear": "Scared 😨",
-  "happy": "Happy 😆",
-  "neutral": "Neutral 🙂",
-  "sad": "Sad 😢",
-  "surprise": "Surprised 😳",
+  0: "angry",
+  1: "calm",
+  2: "disgust",
+  3: "fear",
+  4: "happy",
+  5: "neutral",
+  6: "sad",
+  7: "surprise",
 }
 
 if __name__ == '__main__':
