@@ -3,4 +3,5 @@ joblib==1.4.2
 librosa==0.10.2.post1
 numpy==1.24.3
 tensorflow==2.13.1
-tensorflow-intel==2.13.1
+tensorflow_intel==2.13.1
+gunicorn==23.0.0
