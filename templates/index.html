@@ -13,8 +13,19 @@
   <!-- Main Title -->
   <h1>VERA: Voice Emotion Recognition of Audio</h1>
   <img src="../static/Waveform.jpg" alt="soundwave" width="600" height="300">
-  <br> <br>
-  
+
+  <h3>Click to generate a prompt and an emotion.</h3>
+
+  <!-- Random Prompt Section -->
+  <h2>Random Prompt:</h2>
+  <button id="selectPrompt">Get Random Prompt</button>
+  <div id="randomPrompt">No prompt selected.</div>
+
+  <!-- Random Emotion Section -->
+  <h2>Random Emotion:</h2>
+  <button id="selectEmotion">Get Random Emotion</button>
+  <div id="randomEmotion">No emotion selected.</div>
+
   <!-- Buttons for recording and stopping audio -->
   <button id="record">Start Recording</button>
   <button id="stop" disabled>Stop Recording</button>
@@ -22,16 +33,6 @@
   <!-- Playback section -->
   <h2>Playback:</h2>
   <audio id="audioPlayback" controls></audio>
-  
-  <!-- Random Prompt Section -->
-  <h2>Random Prompt:</h2>
-  <div id="randomPrompt">No prompt selected.</div>
-  <button id="selectPrompt">Get Random Prompt</button>
-
-  <!-- Random Emotion Section -->
-  <h2>Random Emotion:</h2>
-  <div id="randomEmotion">No emotion selected.</div>
-  <button id="selectEmotion">Get Random Emotion</button>
 
   <!-- Classification Result Section -->
   <h2>Classification Result:</h2>
