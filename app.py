@@ -58,8 +58,7 @@ def upload_audio():
    
     # Return the predicted emotion
     return jsonify({"message": "Audio file processed successfully",
-                               "predicted_emotion": predicted_emotion
-                    })
+                    "predicted_emotion": predicted_emotion})
 
 # helper functions:
 def feature_extraction(data, sample_rate): # pipeline for 3 feature extractions
@@ -76,9 +75,11 @@ def feature_extraction(data, sample_rate): # pipeline for 3 feature extractions
     return np.hstack((zcr, rms, mfccs))
 
 def reshape_dims(features): # reshape ndarray dimensions to [4,2376]
+    # using padding to reach target array size
     target_size = 4 * 2376
     pad_size = target_size - features.size
 
+    # zero padding is added to the right of the arr
     arr_padded = np.pad(features, (0, pad_size), 'constant')
     return arr_padded.reshape(4, 2376)
 
