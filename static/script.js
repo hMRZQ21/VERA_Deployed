@@ -28,8 +28,8 @@ const prompts = [
 document.getElementById("record").onclick = async () => {
   // Get the user's microphone input
   let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  mediaRecorder = new MediaRecorder(stream);
-  
+  mediaRecorder = new MediaRecorder(stream); 
+
   // Start recording
   mediaRecorder.start();
   document.getElementById("stop").disabled = false;
@@ -52,6 +52,10 @@ document.getElementById("stop").onclick = () => {
     // Play the recorded audio
     const audioPlayback = document.getElementById("audioPlayback");
     audioPlayback.src = audioUrl;
+    
+    audioPlayback.play().catch(error => {
+      console.error('Error playing audio:', error);
+    });
 
     // Enable record button and disable stop button
     document.getElementById("record").disabled = false;
@@ -66,8 +70,8 @@ document.getElementById("stop").onclick = () => {
 function sendAudioToFlask(audioBlob) {
   const formData = new FormData();
   formData.append('audio', audioBlob, 'recording.wav'); // Append the Blob and give it a filename
-
-  // Use fetch to POST the formData to the Flask server
+    
+  // Use fetch to POST the base64 encoded audio data to the Flask server
   fetch('/upload_audio', {
     method: 'POST',
     body: formData
@@ -88,7 +92,7 @@ function sendAudioToFlask(audioBlob) {
     console.error('Error uploading audio:', error);
     document.getElementById("classificationResult").innerText = "Error processing audio.";
   });
-}
+};
 
 // Function to select a random prompt
 document.getElementById("selectPrompt").onclick = () => {

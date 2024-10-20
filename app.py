@@ -1,17 +1,17 @@
 from flask import Flask, request, jsonify, render_template
 from tensorflow.keras.models import load_model
 from warnings import filterwarnings
-from io import BytesIO  # A binary stream using an in-memory bytes buffer
+from io import BytesIO 
 import numpy as np
-import joblib   # For loading model scaler
 import librosa  # For audio analysis
+import joblib   # For loading model scaler
 
 filterwarnings('ignore')
 app = Flask(__name__)
 
 # Load trained model & scaler
-model = load_model('model/model.h5')
 scaler = joblib.load('model/standard_scaler.save')
+model = load_model('model/model.h5')
 
 @app.route('/')
 def index():  # Runs the HTML file
@@ -23,17 +23,11 @@ def upload_audio():
     if 'audio' not in request.files: 
         return jsonify({"error": "No audio file found"}), 400
 
-    # Get audio file directly from the request
-    audio_file = request.files['audio']
-    # ^ werkzeug.datastructures.file_storage.FileStorage type
-    
-    # Read the file as bytes (in-memory)
-    audio_bytes = audio_file.read()  # byte type
+    # get the uploaded audio file
+    audio_bytes = BytesIO(request.files['audio'].read())
 
-    # Convert the audio bytes to a numpy array using librosa
-    audio_data, sample_rate = librosa.load(BytesIO(audio_bytes), sr=None) 
+    audio_data, sample_rate = librosa.load(audio_bytes, sr=None)
     # ^ audio_data is numpy.ndarray type of floats
-    # ^ sample_rate is int type, value: 48000
     # optional? args for librosa.load(duration=2.5, offset=0.6)
 
     # Processing the audio_data with our speech classification model:
@@ -54,6 +48,7 @@ def upload_audio():
     # print(predicted_class)
 
     predicted_emotion = emotions[predicted_class]
+    # predicted_emotion = None
     # print(predicted_emotion)
    
     # Return the predicted emotion
