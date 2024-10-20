@@ -7,3 +7,4 @@ __pycache__/
 
 # Ignore environment variables
 .env
+.python-version
