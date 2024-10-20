@@ -5,6 +5,7 @@ from io import BytesIO  # A binary stream using an in-memory bytes buffer
 import numpy as np
 import joblib   # For loading model scaler
 import librosa  # For audio analysis
+import soundfile as sf
 
 filterwarnings('ignore')
 app = Flask(__name__)
@@ -24,17 +25,16 @@ def upload_audio():
         return jsonify({"error": "No audio file found"}), 400
 
     # Get audio file directly from the request
-    audio_file = request.files['audio']
+    # audio_file = request.files['audio']
     # ^ werkzeug.datastructures.file_storage.FileStorage type
     
     # Read the file as bytes (in-memory)
-    audio_bytes = audio_file.read()  # byte type
+    # audio_bytes = audio_file.read()  # byte type
+    audio_bytes = BytesIO(request.files['audio'].read())
+    audio_data, sample_rate = sf.read(audio_bytes)
 
     # Convert the audio bytes to a numpy array using librosa
-    audio_data, sample_rate = librosa.load(BytesIO(audio_bytes), sr=None) 
-    # ^ audio_data is numpy.ndarray type of floats
-    # ^ sample_rate is int type, value: 48000
-    # optional? args for librosa.load(duration=2.5, offset=0.6)
+    # audio_data, sample_rate = librosa.load(BytesIO(audio_bytes), sr=None) 
 
     # Processing the audio_data with our speech classification model:
     features = feature_extraction(audio_data, sample_rate)
