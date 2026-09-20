@@ -43,7 +43,7 @@ You can check the [Jupyter Notebook](https://nbviewer.org/github/hMRZQ21/VERA_CT
 
 ## DATASETS USED
 
-I've combined the following four datasets. This left us with a total of 12,162 audio files voiced by 121 actors, with 229 phrases spoken and expressing 7 emotions across them. After performing data augmentation, 12,162 audio files became 48,648 files. Each original file was stretched, noise injected, and pitched, effectively quadrupling the dataset size. 
+I've combined the following four datasets. This left us with a total of 12,162 audio files voiced by 121 actors, with 229 phrases spoken and expressing 8 emotions across them. After performing data augmentation, 12,162 audio files became 48,648 files. Each original file was stretched, noise injected, and pitched, effectively quadrupling the dataset size. 
 
 1. [RAVDESS Emotional Speech Dataset on Kaggle](https://www.kaggle.com/uwrfkaggler/ravdess-emotional-speech-audio)
    <br />
